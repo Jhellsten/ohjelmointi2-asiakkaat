@@ -24,7 +24,7 @@ public class Dao {
 	        con = DriverManager.getConnection(url);	
 	        System.out.println("Yhteys avattu.");
 	     }catch (Exception e){	
-	    	 System.out.println("Yhteyden avaus ep‰onnistui.");
+	    	 System.out.println("Yhteyden avaus ep√§onnistui.");
 	        e.printStackTrace();	         
 	     }
 	     return con;
@@ -85,5 +85,39 @@ public class Dao {
 			e.printStackTrace();
 		}		
 		return henkilot;
+	}
+	
+	public boolean lisaaAsiakas(Henkilo henkilo){
+		boolean paluuArvo=true;
+		sql="INSERT INTO asiakkaat VALUES(?,?,?,?,?)";						  
+		try {
+			con = yhdista();
+			stmtPrep=con.prepareStatement(sql); 
+			stmtPrep.setString(2, henkilo.getEtunimi());
+			stmtPrep.setString(3, henkilo.getSukunimi());
+			stmtPrep.setString(4, henkilo.getPuhelin());
+			stmtPrep.setString(5, henkilo.getSposti());
+			stmtPrep.executeUpdate();
+	        con.close();
+		} catch (Exception e) {				
+			e.printStackTrace();
+			paluuArvo=false;
+		}				
+		return paluuArvo;
+	}
+	public boolean poistaAsiakas(String sposti){
+		boolean paluuArvo=true;
+		sql="DELETE FROM asiakkaat WHERE sposti=?";						  
+		try {
+			con = yhdista();
+			stmtPrep=con.prepareStatement(sql); 
+			stmtPrep.setString(1, sposti);			
+			stmtPrep.executeUpdate();
+	        con.close();
+		} catch (Exception e) {				
+			e.printStackTrace();
+			paluuArvo=false;
+		}				
+		return paluuArvo;
 	}
 }

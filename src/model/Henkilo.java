@@ -5,6 +5,7 @@ public class Henkilo {
 	public Henkilo() {
 		super();		
 	}
+	
 	public Henkilo(String etunimi, String sukunimi, String sposti, String vuosi) {
 		super();
 		this.etunimi = etunimi;
@@ -38,7 +39,7 @@ public class Henkilo {
 	}
 	@Override
 	public String toString() {
-		return "Nimi: " + etunimi;
+		return "Nimi: " + etunimi + " Sukunimi " + sukunimi + " Puhelin: " + puhelin + " sposti: " + sposti;
 	}
 
 	

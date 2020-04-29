@@ -1,0 +1,32 @@
+body {
+	margin: 0;
+}
+table {
+	border: 1px solid grey;
+}
+th {
+	padding: 10px;
+	min-width: 100px;
+	margin: 0;
+}
+.oikealle{
+	text-align: right;
+}
+.ylapalkki {
+	background-color: darkgreen;
+	padding: 5px;
+	color: white;
+}
+
+.tiedot > tr {
+	background-color: white;
+	
+}
+.tiedot > tr:nth-child(even) {
+	background-color: lightgrey;
+}
+.tiedot > tr > td {
+	padding: 10px;
+	border: 1px solid grey;
+	margin: 0;
+	}

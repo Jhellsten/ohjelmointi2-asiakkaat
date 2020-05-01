@@ -121,6 +121,24 @@ public class Dao {
 		return paluuArvo;
 	}
 	
+	public boolean poistaKaikki(String salasana){
+		if(salasana.equals("oikein") == false) {
+			return false;
+		}
+		boolean paluuArvo=true;
+		sql="DELETE FROM asiakkaat";						  
+		try {
+			con = yhdista();
+			stmtPrep=con.prepareStatement(sql); 		
+			stmtPrep.executeUpdate();
+	        con.close();
+		} catch (Exception e) {				
+			e.printStackTrace();
+			paluuArvo=false;
+		}				
+		return paluuArvo;
+	}
+	
 	public Henkilo etsiAsiakas(String hakusana){
 		Henkilo asiakas = null;
 		System.out.println(hakusana);

@@ -6,12 +6,12 @@ public class Henkilo {
 		super();		
 	}
 	
-	public Henkilo(String etunimi, String sukunimi, String sposti, String vuosi) {
+	public Henkilo(String etunimi, String sukunimi, String sposti, String puhelin) {
 		super();
 		this.etunimi = etunimi;
 		this.sukunimi = sukunimi;
 		this.sposti = sposti;
-		this.puhelin = vuosi;
+		this.puhelin = puhelin;
 	}
 	public String getEtunimi() {
 		return etunimi;

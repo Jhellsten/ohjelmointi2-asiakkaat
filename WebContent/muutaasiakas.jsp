@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/main.css">
-<title>Lisää asiakas</title>
+<title>Muokkaa asiakasta</title>
 
 </head>
 <body>
@@ -32,10 +32,11 @@
 				<td><input type="text" name="sukunimi" id="sukunimi"></td>
 				<td><input type="text" name="puhelin" id="puhelin"></td>
 				<td><input type="text" name="sposti" id="sposti"></td> 
-				<td><input type="submit" id="tallenna" value="Lisaa"></td>
+				<td><input type="submit" id="tallenna" value="Hyv�ksy"></td>
 			</tr>
 		</tbody>
 	</table>
+	<input type="hidden" name="vanhasposti" id="vanhasposti">	
 </form>
 <span id="ilmo"></span>
 </body>
@@ -43,7 +44,18 @@
 $(document).ready(function(){
 	$("#takaisin").click(function(){
 		document.location="listaaasiakkaat.jsp";
-	});	
+	});
+	var sposti = requestURLParam("sposti");
+	console.log(sposti)
+
+		$.ajax({url:"asiakkaat/haeyksi/"+sposti, type:"GET", dataType:"json", success:function(result){	
+			$("#vanhasposti").val(result.sposti);	
+			$("#etunimi").val(result.etunimi);		
+			$("#sukunimi").val(result.sukunimi);	
+			$("#puhelin").val(result.puhelin);
+			$("#sposti").val(result.sposti);		
+	    }});	
+		
 	
 	$("#tiedot").validate({						
 		rules: {
@@ -83,20 +95,20 @@ $(document).ready(function(){
 			}
 		},			
 		submitHandler: function(form) {	
-			lisaaTiedot();
+			paivitaTiedot();
 		}		
 	}); 	
 });
 
-function lisaaTiedot(){	
+function paivitaTiedot(){	
 	var formJsonStr = formDataJsonStr($("#tiedot").serializeArray()); //muutetaan lomakkeen tiedot json-stringiksi
-	$.ajax({url:"asiakkaat/", data:formJsonStr, type:"POST", dataType:"json", success:function(result) { //result on joko {"response:1"} tai {"response:0"}       
+	$.ajax({url:"asiakkaat", data:formJsonStr, type:"PUT", dataType:"json", success:function(result) { //result on joko {"response:1"} tai {"response:0"}       
 		if(result.response==0){
-      	$("#ilmo").html("Asiakkaan lisääminen epäonnistui");
-      }else if(result.response==1){			
-      	$("#ilmo").html("Asiakkaan lisääminen onnistui");
-      	$("#etunimi", "#sukunimi", "#puhelin", "#sposti").val("");
-		}
+	      	$("#ilmo").html("Asiakkaan muokkaaminen ep�onnistui");
+	      }else if(result.response==1){			
+	      	$("#ilmo").html("Asiakkaan muokkaaminen onnistui");
+	      	$("#etunimi", "#sukunimi", "#puhelin", "#sposti").val("");
+			}
   }});	
 }
 </script>

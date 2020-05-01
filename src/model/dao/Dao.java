@@ -120,4 +120,51 @@ public class Dao {
 		}				
 		return paluuArvo;
 	}
+	
+	public Henkilo etsiAsiakas(String hakusana){
+		Henkilo asiakas = null;
+		System.out.println(hakusana);
+		sql = "SELECT * FROM asiakkaat WHERE sposti = ?";      
+		try {
+			con=yhdista();
+			if(con!=null){ 
+				stmtPrep = con.prepareStatement(sql);
+				stmtPrep.setString(1, hakusana);
+        		rs = stmtPrep.executeQuery();   
+				if(rs.isBeforeFirst()){ 
+					rs.next();
+						asiakas = new Henkilo();
+						asiakas.setEtunimi(rs.getString(2));
+						asiakas.setSukunimi(rs.getString(3));
+						asiakas.setPuhelin(rs.getString(4));
+						asiakas.setSposti(rs.getString(5));	
+										
+				}				
+			}	
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return asiakas;
+	}
+	
+	public boolean muutaAsiakas(Henkilo henkilo, String sposti){
+		boolean paluuArvo=true;
+		sql="UPDATE asiakkaat SET etunimi=?, sukunimi=?, puhelin=?, sposti=? WHERE sposti=?";						  
+		try {
+			con = yhdista();
+			stmtPrep=con.prepareStatement(sql); 
+			stmtPrep.setString(1, henkilo.getEtunimi());
+			stmtPrep.setString(2, henkilo.getSukunimi());
+			stmtPrep.setString(3, henkilo.getPuhelin());
+			stmtPrep.setString(4, henkilo.getSposti());
+			stmtPrep.setString(5, sposti);
+			stmtPrep.executeUpdate();
+	        con.close();
+		} catch (Exception e) {				
+			e.printStackTrace();
+			paluuArvo=false;
+		}				
+		return paluuArvo;
+	}
 }

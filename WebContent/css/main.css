@@ -1,32 +1,49 @@
-body {
-	margin: 0;
-}
+@charset "ISO-8859-1";
 table {
-	border: 1px solid grey;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;  
+  width: 50%;
 }
-th {
-	padding: 10px;
-	min-width: 100px;
-	margin: 0;
+
+table td, table th {
+  border: 1px solid #ddd;
+  padding: 8px;  
 }
+
+table tbody tr:nth-child(even){background-color: #f2f2f2;}
+
+table tbody tr:hover {background-color: #ddd;}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.muuta{
+	color: green;
+	text-decoration: none;
+	cursor: pointer;	
+}
+
+.poista{
+	color: red;
+	text-decoration: none;
+	cursor: pointer;	
+}
+
 .oikealle{
-	text-align: right;
+	text-align: right;	
 }
-.ylapalkki {
-	background-color: darkgreen;
-	padding: 5px;
+a{
+	text-decoration: none;
 	color: white;
 }
 
-.tiedot > tr {
-	background-color: white;
-	
+#uusiAuto, #takaisin{
+	color: white;	
+	cursor: pointer;	
 }
-.tiedot > tr:nth-child(even) {
-	background-color: lightgrey;
-}
-.tiedot > tr > td {
-	padding: 10px;
-	border: 1px solid grey;
-	margin: 0;
-	}
+
